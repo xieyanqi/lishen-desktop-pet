@@ -42,6 +42,8 @@
 
 ## 补充与分享语录
 
+最初的 87 条语录整理自游戏里黎深的**牵绊度语录**和一些**卡面经典语录**。这份整理肯定还有遗漏，请大家多担待。也欢迎家茉来补充，右键选「推荐一句黎深语录」，或直接打开下方投稿表单。
+
 在桌宠上右键，选 **补充我的语录**。在记事本里每行加一句，按 **Ctrl + S** 保存。以 `#` 开头的行视为说明。下次把鼠标移到白黎身上时，你新增的句子就会参与抽取。这个操作只对你自己的桌宠生效，无需 GitHub 账号。
 
 语录保存在你自己的电脑上。想把某句分享给 Astrizaynie 时，可以右键选 **推荐一句黎深语录**，在打开的说明页点 **打开中文投稿表单**，也可以直接打开[中文语录投稿表单](https://github.com/xieyanqi/lishen-desktop-pet/issues/new?template=share-quote.yml)。公开投稿需要登录 GitHub。
@@ -51,9 +53,26 @@
 
 投稿由开发者 Astrizaynie 审核。审核通过并收录到新版安装包后，安装该新版的用户才会看到这句语录。
 
-想只保留 87 条内置语录和自己添加的句子，可以右键黎深 → **自定义皮肤动作** → **关闭他人投稿语录**。这项选择会保存在本机。想恢复时，在同一位置点 **开启他人投稿语录**。当前语录池里的投稿仅来自开发者审核后随版本收录的内容。
+右键黎深 → **自定义皮肤动作**：
+
+- **仅使用初始语录**：只抽最初的 87 条。自己的语录和后来收录的投稿会暂时跳过。再点 **退出初始语录模式**，就会恢复原来的语录设置。
+- **关闭他人投稿语录**：只隐藏后来收录的投稿，仍可抽到原版和自己添加的句子。
+
+两项偏好都保存在本机。
 
 提交后，句子和你的 GitHub 用户名会公开显示。
+
+<details>
+<summary>维护者怎么审核并发布新语录</summary>
+
+1. 在 GitHub 的 [Issues 投稿列表](https://github.com/xieyanqi/lishen-desktop-pet/issues) 读投稿。决定收录后，把同意的句子复制下来。
+2. 在 Windows 文件资源管理器里打开已安装的 `文档\\Rainmeter\\Skins\\LiShen\\@Resources` 文件夹。用记事本打开 `CommunityQuotes.txt`，把审核通过的句子逐行追加到末尾并保存为 UTF-8。`Quotes.txt` 是固定的初始语录，每次发布都保留最初的 87 条。自己的测试语录可以通过桌宠菜单「补充我的语录」单独保存。
+3. 在 Rainmeter 管理窗口点左下角 **Create .rmskin package（创建 .rmskin 包）**。名称填 `LiShen-Desktop-Pet`，作者填 `Astrizaynie`，填写新版本号，点 **Add skin** 选整个 `LiShen` 文件夹。下一步的 **Load skin** 选 `LiShen\\LiShen.ini`，Rainmeter 最低版本填 `5.0.0.5363`，然后点 **Create package**。
+4. 将打包后的文件命名为 `LiShen-Desktop-Pet.rmskin`，上传到仓库根目录替换同名文件。新版发布后，可以回原投稿留言注明收录在哪一版，再关闭 Issue。用户下载并安装新版后，开启他人投稿语录时才会抽到这些句子。
+
+[Rainmeter 官方打包说明](https://docs.rainmeter.net/manual/distributing-skins/index.html)
+
+</details>
 
 ## 开机启动与性能
 
