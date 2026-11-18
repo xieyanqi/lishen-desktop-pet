@@ -10,7 +10,7 @@
 
 适用于 Windows 11 或 64 位 Windows 10（1903 及以上）。整个过程用鼠标操作即可。
 
-1. 打开 [Rainmeter 官网下载页](https://www.rainmeter.net/changes-5.0/)，点击 **Download Rainmeter 5.0 RC2**。如果打开的是 GitHub 发布页，在 **Assets** 里选 `Rainmeter-5.0.0.5363.exe`。运行安装文件，选 **Standard installation（标准安装）**。如果想让黎深随电脑启动，勾选 **Launch Rainmeter on startup（开机启动 Rainmeter）**。
+1. 打开 [Rainmeter 官网下载页](https://www.rainmeter.net/changes-5.0/)，点击 **Download Rainmeter 5.0 RC2**。如果打开的是 GitHub 发布页，在 **Assets** 里选 `Rainmeter-5.0.0.5363-RC2.exe`。运行安装文件，选 **Standard installation（标准安装）**。如果想让黎深随电脑启动，勾选 **Launch Rainmeter on startup（开机启动 Rainmeter）**。
 2. 打开 Rainmeter。点击本页上方的 **下载黎深桌宠安装包**，在电脑的「下载」文件夹里双击 `LiShen-Desktop-Pet.rmskin`，点 **Install（安装）**。
 3. 回到桌面，在右下角找黎深。找到了就可以拖到喜欢的位置。想立刻看一次提醒，右键黎深，选 **现在休息**。
 
@@ -32,6 +32,7 @@
 
 | 情况 | 怎么处理 |
 | --- | --- |
+| 点下载链接后没开始下载 | 打开 [安装包文件页](https://github.com/xieyanqi/lishen-desktop-pet/blob/main/LiShen-Desktop-Pet.rmskin)，点击文件右上角的下载图标 **Download raw file**。 |
 | 双击安装包后，Windows 问用什么打开 | 先完成 Rainmeter 的标准安装，再双击以 `.rmskin` 结尾的文件。 |
 | 安装完成，桌面上没有小人 | 点任务栏右下角的 Rainmeter 雨滴图标。在 **Manage（管理）→ Skins（皮肤）** 里展开 **LiShen**，选中 **LiShen.ini**，点 **Load（加载）**。看不到 LiShen 时，先点 **Refresh all（刷新全部）**。 |
 | Rainmeter 提示版本太旧 | 装 [Rainmeter 5.0 RC2 或更新版本](https://www.rainmeter.net/changes-5.0/)，再双击桌宠安装包。 |
