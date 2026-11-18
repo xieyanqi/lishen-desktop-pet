@@ -62,18 +62,6 @@
 
 提交后，句子和你的 GitHub 用户名会公开显示。
 
-<details>
-<summary>维护者怎么审核并发布新语录</summary>
-
-1. 在 GitHub 的 [Issues 投稿列表](https://github.com/xieyanqi/lishen-desktop-pet/issues) 读投稿。决定收录后，把同意的句子复制下来。
-2. 在 Windows 文件资源管理器里打开已安装的 `文档\\Rainmeter\\Skins\\LiShen\\@Resources` 文件夹。用记事本打开 `CommunityQuotes.txt`，把审核通过的句子逐行追加到末尾并保存为 UTF-8。`Quotes.txt` 是固定的初始语录，每次发布都保留最初的 87 条。自己的测试语录可以通过桌宠菜单「补充我的语录」单独保存。
-3. 在 Rainmeter 管理窗口点左下角 **Create .rmskin package（创建 .rmskin 包）**。名称填 `LiShen-Desktop-Pet`，作者填 `Astrizaynie`，填写新版本号，点 **Add skin** 选整个 `LiShen` 文件夹。下一步的 **Load skin** 选 `LiShen\\LiShen.ini`，Rainmeter 最低版本填 `5.0.0.5363`，然后点 **Create package**。
-4. 将打包后的文件命名为 `LiShen-Desktop-Pet.rmskin`，上传到仓库根目录替换同名文件。新版发布后，可以回原投稿留言注明收录在哪一版，再关闭 Issue。用户下载并安装新版后，开启他人投稿语录时才会抽到这些句子。
-
-[Rainmeter 官方打包说明](https://docs.rainmeter.net/manual/distributing-skins/index.html)
-
-</details>
-
 ## 开机启动与性能
 
 新版每秒更新一次，语录文件等到第一次悬停时才读取。桌宠本身在本机运行，点击分享入口时才会打开 GitHub。
