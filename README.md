@@ -16,7 +16,7 @@
 
 ## 从旧版升级
 
-重新下载最新安装包，双击并点击 **Install（安装）** 即可。原来的休息项目保存在 Rainmeter 的设置里，升级后会继续读取。新版是 **1.2.0**，Rainmeter 管理窗口里会显示作者 **Astrizaynie**。
+重新下载最新安装包，双击并点击 **Install（安装）** 即可。原来的休息项目保存在 Rainmeter 的设置里，升级后会继续读取。新版是 **1.2.1**，Rainmeter 管理窗口里会显示作者 **Astrizaynie**。
 
 ## 修改工作和休息时长
 
@@ -39,7 +39,7 @@
 ## 悬停语录与投喂
 
 - **工作时**，把鼠标移到白黎身上，会从 87 条内置语录和你补充的句子里随机选一句。移开后再靠近，可以看到另一句。
-- **休息时**，把鼠标移到黑黎身上，他的右上方会出现带蓝色雪花的小菜单。点击 **黑巧克力、草莓蛋糕或马卡龙**，黑黎会切换到吃甜食的表情约 10 秒，菜单会显示一个随机颜文字。休息计时仍在运行，最后 10 秒内停止接收投喂。
+- **休息时**，把鼠标移到黑黎身上，他的右上方会出现带蓝色雪花的小菜单。点击 **黑巧克力、草莓蛋糕或马卡龙**，黑黎会切换到吃甜食的表情约 10 秒，菜单会显示一个随机颜文字（共 56 种）。休息计时仍在运行，最后 10 秒内停止接收投喂。
 
 ## 补充与分享语录
 
@@ -51,7 +51,7 @@
 
 新版每秒更新一次，语录文件等到第一次悬停时才读取。桌宠本身在本机运行，点击分享入口时才会打开 GitHub。
 
-在 Windows 按 **Ctrl + Shift + Esc**，打开 **任务管理器 → 启动应用**，可以查看 Rainmeter 的「启动影响」。如果你希望 Rainmeter 完全不参与登录时启动，右键它选 **禁用**。以后需要桌宠时，从开始菜单手动打开 Rainmeter 即可。[微软官方操作说明](https://support.microsoft.com/en-gb/windows/experience/startup-boot/configure-startup-applications-in-windows)
+在 Windows 按 **Ctrl + Shift + Esc**，打开 **任务管理器 → 启动应用**，可以查看 Rainmeter 的「启动影响」。如果你希望 Rainmeter 完全不参与登录时启动，右键它选 **禁用**。以后需要桌宠时，从开始菜单搜索并打开 **Rainmeter**。如果它已经在运行，关闭自启不会把它关掉。[微软官方操作说明](https://support.microsoft.com/en-gb/windows/experience/startup-boot/configure-startup-applications-in-windows)
 
 ## 遇到问题
 
