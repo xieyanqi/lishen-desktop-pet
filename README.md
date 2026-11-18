@@ -44,7 +44,7 @@
 
 在桌宠上右键，选 **补充我的语录**。在记事本里每行加一句，按 **Ctrl + S** 保存。以 `#` 开头的行视为说明。下次把鼠标移到白黎身上时，你新增的句子就会参与抽取。这个操作只对你自己的桌宠生效，无需 GitHub 账号。
 
-语录保存在你自己的电脑上。想把某句分享给 Astrizaynie 时，可以右键选 **分享语录（中文引导）**，在打开的说明页点 **打开中文投稿表单**，也可以直接打开[中文语录投稿表单](https://github.com/xieyanqi/lishen-desktop-pet/issues/new?template=share-quote.yml)。公开投稿需要登录 GitHub。
+语录保存在你自己的电脑上。想把某句分享给 Astrizaynie 时，可以右键选 **推荐一句黎深语录**，在打开的说明页点 **打开中文投稿表单**，也可以直接打开[中文语录投稿表单](https://github.com/xieyanqi/lishen-desktop-pet/issues/new?template=share-quote.yml)。公开投稿需要登录 GitHub。
 
 1. 把想分享的句子粘贴到 **我想分享的语录**，每行一句。
 2. 点右下角绿色的 **Create（提交）**。标题已经填好，右边的选项可以直接略过。
