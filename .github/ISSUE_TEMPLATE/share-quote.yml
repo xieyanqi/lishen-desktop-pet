@@ -1,0 +1,18 @@
+name: 分享一句黎深语录
+description: 把你想分享的桌宠语录发给 Astrizaynie。
+title: "【语录投稿】想让黎深说的话"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        把想分享的句子填进下面的「我想分享的语录」，每行一句，然后点击右下角绿色的 **Create（提交）**。上方的标题已经填好，右边的选项可以直接略过。
+
+        提交后，句子和你的 GitHub 用户名会公开显示。只填写你愿意公开的内容。
+  - type: textarea
+    id: quotes
+    attributes:
+      label: 我想分享的语录
+      description: 填一句或多句都可以，每行一句。
+      placeholder: 今天也记得给自己留一点休息时间。
+    validations:
+      required: true
