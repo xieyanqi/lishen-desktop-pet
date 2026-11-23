@@ -1,17 +1,14 @@
 #pragma once
-#include "Animation.hpp"
+#include "Pose.hpp"
 #include <initializer_list>
 namespace lishen {
-struct Point {float x,y;};
 // Portable vector scene, rendered by GDI+ in Windows and SVG in the preview.
 // Drawing and animation code is original. No KuroCat artwork is used.
 template<class C> void character(C& c,const Animation& a) {
- using P=Point;
  const char* outline="#353647"; const char* skin="#f7dfd1";
  const char* coat=a.rest?"#343442":"#f7fafc";
- float breath=std::sin(float(a.time)*1.8f)*1.1f;
- float hx=a.gazeX*3.2f,hy=a.gazeY*1.3f+breath;
- float gesture=a.gesture(); bool glasses=a.action==Action::Glasses;
+ const Pose p=pose(a);
+ float hx=p.headX,hy=p.headY;
  c.ellipse(74,291,174,15,"#d9e5ee","none",0);
  // Seated legs and shoes.
  c.ellipse(89,233,65,61,"#40414e",outline,2);
@@ -50,7 +47,7 @@ template<class C> void character(C& c,const Animation& a) {
  c.line(157+hx,146+hy,155+hx,151+hy,"#c19a8b",1);
  c.curve({{148+hx,164+hy},{155+hx,169+hy},{164+hx,169+hy},{172+hx,163+hy}},"none","#946c70",1.7f);
  // Thin rectangular glasses, gently raised during the glasses gesture.
- float gy=glasses?-gesture*3:0;
+ float gy=p.glassesY;
  c.roundRect(99+hx,128+hy+gy,48,24,5,"none","#4e5260",1.8f);
  c.roundRect(171+hx,128+hy+gy,48,24,5,"none","#4e5260",1.8f);
  c.line(147+hx,135+hy+gy,171+hx,135+hy+gy,"#4e5260",1.5f);
@@ -60,14 +57,42 @@ template<class C> void character(C& c,const Animation& a) {
  c.curve({{85+hx,78+hy},{110+hx,41+hy},{144+hx,33+hy},{174+hx,40+hy}},"none","#646072",3);
  c.curve({{144+hx,50+hy},{163+hx,38+hy},{190+hx,45+hy},{213+hx,58+hy}},"none","#595467",2);
  c.curve({{99+hx,89+hy},{121+hx,74+hy},{136+hx,59+hy},{143+hx,45+hy}},"none","#555164",2);
- // Keyboard stays fixed; the hands are independent articulated limbs.
+ // Fixed keyboard; only the two contacted keys move down with their fingers.
  c.roundRect(78,263,164,29,7,"#dce9f1","#93aec2",1.7f);
- for(int row=0;row<3;row++) for(int k=0;k<11;k++) c.roundRect(85+k*13.5f,267+row*7,10,4,1,"#ffffff","none",0);
- float leftX=117,leftY=246-float(a.pulseLeft)*7,rightX=203,rightY=246-float(a.pulseRight)*7;
- if(glasses) {rightX=211-gesture*3;rightY-=gesture*105;}
- c.line(109,195,leftX,leftY,outline,24);c.line(109,195,leftX,leftY,coat,21);
- c.line(207,194,rightX,rightY,outline,24);c.line(207,194,rightX,rightY,coat,21);
- c.ellipse(leftX-11,leftY-6,24,19,skin,outline,1.4f);c.ellipse(rightX-12,rightY-6,24,19,skin,outline,1.4f);
-
+ for(int row=0;row<3;row++) for(int k=0;k<11;k++) {
+   float press=row==1?(k==3?p.pressLeft:k==8?p.pressRight:0):0;
+   c.roundRect(85+k*13.5f,267+row*7+press*1.6f,10,4,1,
+       press>.15f?"#9dc9e1":"#ffffff","none",0);
+ }
+ // Articulated shoulders, elbows, forearms, cuffs, palms, and fingers.
+ auto arm=[&](Point shoulder,Point palm,bool right){
+   Point wrist{palm.x,palm.y-5};Point bend=elbow(shoulder,wrist,45,52,right);
+   c.line(shoulder.x,shoulder.y,bend.x,bend.y,outline,23);
+   c.line(bend.x,bend.y,wrist.x,wrist.y,outline,21);
+   c.line(shoulder.x,shoulder.y,bend.x,bend.y,coat,20);
+   c.line(bend.x,bend.y,wrist.x,wrist.y,coat,18);
+   c.line(wrist.x-6,wrist.y-3,wrist.x+6,wrist.y-3,"#b4c4d0",1.3f);
+   c.ellipse(palm.x-10,palm.y-7,20,17,skin,outline,1.2f);
+ };
+ arm({109,195},p.leftPalm,false);arm({207,194},p.rightPalm,true);
+ auto fingers=[&](Point palm,float reach,Point index){
+   // A small fan of fingers rests on keys. The index unfolds toward the frame.
+   for(int j=0;j<3;j++){
+     float x=palm.x-6+j*5;
+     float tipY=palm.y+15-j;
+     if(j==2 && reach>.001f) {
+       Point base{palm.x+3,palm.y-1};
+       Point knuckle=mix(Point{palm.x+8,palm.y+6},Point{index.x-4,index.y+8},reach);
+       c.line(base.x,base.y,knuckle.x,knuckle.y,outline,6);
+       c.line(knuckle.x,knuckle.y,index.x,index.y,outline,5);
+       c.line(base.x,base.y,knuckle.x,knuckle.y,skin,3.8f);
+       c.line(knuckle.x,knuckle.y,index.x,index.y,skin,2.8f);
+     } else {
+       c.line(x,palm.y+3,x,tipY,outline,5);
+       c.line(x,palm.y+3,x,tipY,skin,3);
+     }
+   }
+ };
+ fingers(p.leftPalm,0,{0,0});fingers(p.rightPalm,p.reach,p.indexTip);
 }
 }

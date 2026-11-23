@@ -7,10 +7,11 @@ namespace lishen {
 enum class Action { Idle, Typing, Glasses };
 struct Animation {
  double time=0, lastKey=-100, nextIdle=10, actionStart=0, pulseLeft=0, pulseRight=0;
+ double leftHit=-100,rightHit=-100;
  float gazeX=0,gazeY=0; bool enabled=true, rest=false; unsigned keyCount=0;
  Action action=Action::Idle; std::mt19937 random{173};
  void key() { if(!enabled)return; lastKey=time; ++keyCount;
-   if(keyCount%2) pulseLeft=1; else pulseRight=1;
+   if(action!=Action::Glasses) {if(keyCount%2)leftHit=time;else rightHit=time;}
    // Finish the small idle gesture before returning to typing.
    if(action==Action::Idle || action==Action::Typing) action=Action::Typing;
  }
@@ -20,7 +21,12 @@ struct Animation {
    float smooth=float(1-std::exp(-dt*9));
    gazeX+=(std::clamp(x,-1.0f,1.0f)-gazeX)*smooth;
    gazeY+=(std::clamp(y,-1.0f,1.0f)-gazeY)*smooth;
-   pulseLeft*=std::exp(-dt*13); pulseRight*=std::exp(-dt*13);
+   auto tap=[&](double hit){
+     double t=(time-hit)/.24;
+     return t>=0 && t<1?std::pow(std::sin(t*3.141592653589793),2):0.0;
+   };
+   pulseLeft=action==Action::Glasses?0:tap(leftHit);
+   pulseRight=action==Action::Glasses?0:tap(rightHit);
    if(action!=Action::Idle && action!=Action::Typing && time-actionStart>=4) {
       action=(enabled && time-lastKey<1.4)?Action::Typing:Action::Idle; nextIdle=time+10+(random()%9);
    }

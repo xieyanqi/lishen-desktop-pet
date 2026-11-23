@@ -20,6 +20,7 @@ void* bufferPixels=nullptr; ULONGLONG lastTick=0; UINT taskbarCreated=0;
 HWND menuOwner=nullptr;
 ULONGLONG lastKey=0;
 bool dragging=false, resting=false, inputEnabled=true, passThrough=false;
+bool slowMotion=false;
 POINT grab{};
 
 void draw() {
@@ -55,6 +56,7 @@ void menu() {
   AppendMenuW(m,MF_STRING|(inputEnabled?MF_CHECKED:0),2,L"响应打字动作（不记录文字）");
   AppendMenuW(m,MF_STRING|(passThrough?MF_CHECKED:0),3,L"鼠标穿透（快捷键恢复）");
   AppendMenuW(m,MF_STRING,7,L"预览：推眼镜");
+  AppendMenuW(m,MF_STRING|(slowMotion?MF_CHECKED:0),8,L"动作慢放（四分之一速度）");
   AppendMenuW(m,MF_SEPARATOR,0,nullptr); AppendMenuW(m,MF_STRING,4,L"退出小黎");
   POINT p; GetCursorPos(&p); SetForegroundWindow(menuOwner);
   int choice=TrackPopupMenu(m,TPM_RETURNCMD|TPM_RIGHTBUTTON,p.x,p.y,0,menuOwner,nullptr);
@@ -63,6 +65,7 @@ void menu() {
   if(choice==3) setThrough(!passThrough);
   if(choice==4) DestroyWindow(windowHandle);
   if(choice==7) animation.preview(lishen::Action::Glasses);
+  if(choice==8)slowMotion=!slowMotion;
   DestroyMenu(m); PostMessageW(windowHandle,WM_NULL,0,0);
 }
 LRESULT CALLBACK procedure(HWND h,UINT message,WPARAM w,LPARAM l) {
@@ -73,7 +76,7 @@ LRESULT CALLBACK procedure(HWND h,UINT message,WPARAM w,LPARAM l) {
       float targetX=(cursor.x-(r.left+Width/2))/320.0f;
       float targetY=(cursor.y-(r.top+130))/260.0f;
       ULONGLONG now=GetTickCount64();
-      animation.tick((now-lastTick)/1000.0,targetX,targetY);lastTick=now;
+      animation.tick((now-lastTick)/1000.0*(slowMotion?.25:1),targetX,targetY);lastTick=now;
       draw(); return 0;
     }
     case WM_INPUT: {
