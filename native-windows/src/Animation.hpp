@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <random>
 namespace lishen {
-enum class Action { Idle, Typing, Tea, Sweet, Glasses, Pet };
+enum class Action { Idle, Typing, Glasses };
 struct Animation {
  double time=0, lastKey=-100, nextIdle=10, actionStart=0, pulseLeft=0, pulseRight=0;
  float gazeX=0,gazeY=0; bool enabled=true, rest=false; unsigned keyCount=0;
@@ -26,8 +26,7 @@ struct Animation {
    }
    if(action==Action::Typing && (!enabled || time-lastKey>1.4)) {action=Action::Idle;nextIdle=time+8;}
    if(action==Action::Idle && time>=nextIdle) {
-      Action choices[]={Action::Tea,Action::Sweet,Action::Glasses};
-      preview(choices[random()%3]);
+      preview(Action::Glasses);
    }
  }
  float gesture() const {return float(std::sin(std::clamp((time-actionStart)/4.0,0.0,1.0)*3.141592653589793));}

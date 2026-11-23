@@ -1,4 +1,7 @@
 #include "../src/Animation.hpp"
+#ifdef NDEBUG
+#undef NDEBUG
+#endif
 #include <cassert>
 #include <cmath>
 using namespace lishen;
@@ -8,7 +11,7 @@ int main(){
  a.key();assert(a.pulseRight==1);
  for(int i=0;i<20;i++)a.tick(0.1,1,-1);
  assert(a.action==Action::Idle && a.gazeX>0.9 && a.gazeY<-0.9);
- a.preview(Action::Tea);a.key();assert(a.action==Action::Tea);
+ a.preview(Action::Glasses);a.key();assert(a.action==Action::Glasses);
  for(int i=0;i<45;i++)a.tick(0.1,0,0);
  assert(a.action==Action::Idle);
  a.enabled=false;a.key();assert(a.action!=Action::Typing);

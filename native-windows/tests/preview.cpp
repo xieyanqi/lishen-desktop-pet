@@ -18,7 +18,7 @@ struct SvgCanvas {
  }
 };
 int main(){
- for(int action=0;action<5;action++)for(int i=0;i<48;i++) {
+ for(int action=0;action<3;action++)for(int i=0;i<48;i++) {
    Animation a;a.time=double(i)/12; a.action=static_cast<Action>(action);a.actionStart=0;
    if(action==1){a.pulseLeft=float((1+std::sin(i*1.1))/2);a.pulseRight=1-a.pulseLeft;}
    SvgCanvas c;c.out<<std::fixed<<std::setprecision(2);character(c,a);

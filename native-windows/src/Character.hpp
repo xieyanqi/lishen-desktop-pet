@@ -11,7 +11,7 @@ template<class C> void character(C& c,const Animation& a) {
  const char* coat=a.rest?"#343442":"#f7fafc";
  float breath=std::sin(float(a.time)*1.8f)*1.1f;
  float hx=a.gazeX*3.2f,hy=a.gazeY*1.3f+breath;
- float gesture=a.gesture(); bool tea=a.action==Action::Tea,sweet=a.action==Action::Sweet,glasses=a.action==Action::Glasses;
+ float gesture=a.gesture(); bool glasses=a.action==Action::Glasses;
  c.ellipse(74,291,174,15,"#d9e5ee","none",0);
  // Seated legs and shoes.
  c.ellipse(89,233,65,61,"#40414e",outline,2);
@@ -64,18 +64,10 @@ template<class C> void character(C& c,const Animation& a) {
  c.roundRect(78,263,164,29,7,"#dce9f1","#93aec2",1.7f);
  for(int row=0;row<3;row++) for(int k=0;k<11;k++) c.roundRect(85+k*13.5f,267+row*7,10,4,1,"#ffffff","none",0);
  float leftX=117,leftY=246-float(a.pulseLeft)*7,rightX=203,rightY=246-float(a.pulseRight)*7;
- if(tea||sweet) {leftX-=gesture*4;leftY-=gesture*75;}
  if(glasses) {rightX=211-gesture*3;rightY-=gesture*105;}
  c.line(109,195,leftX,leftY,outline,24);c.line(109,195,leftX,leftY,coat,21);
  c.line(207,194,rightX,rightY,outline,24);c.line(207,194,rightX,rightY,coat,21);
  c.ellipse(leftX-11,leftY-6,24,19,skin,outline,1.4f);c.ellipse(rightX-12,rightY-6,24,19,skin,outline,1.4f);
- if(tea) {
-   c.ellipse(leftX+9,leftY-16,18,20,"none","#6fabc5",4);
-   c.roundRect(leftX-12,leftY-25,29,29,5,"#acd6e8","#6797b3",1.5f);
-   c.ellipse(leftX-12,leftY-27,29,7,"#d9edf5","#6797b3",1);
- } else if(sweet) {
-   c.roundRect(leftX-3,leftY-29,22,26,3,"#674a42","#4e3835",1.3f);
-   c.line(leftX+8,leftY-26,leftX+8,leftY-6,"#997666",1);c.line(leftX,leftY-17,leftX+17,leftY-17,"#997666",1);
- }
+
 }
 }

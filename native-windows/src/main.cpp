@@ -54,8 +54,6 @@ void menu() {
   AppendMenuW(m,MF_STRING|(resting?MF_CHECKED:0),1,L"休息形象预览");
   AppendMenuW(m,MF_STRING|(inputEnabled?MF_CHECKED:0),2,L"响应打字动作（不记录文字）");
   AppendMenuW(m,MF_STRING|(passThrough?MF_CHECKED:0),3,L"鼠标穿透（快捷键恢复）");
-  AppendMenuW(m,MF_STRING,5,L"预览：喝茶");
-  AppendMenuW(m,MF_STRING,6,L"预览：吃甜食");
   AppendMenuW(m,MF_STRING,7,L"预览：推眼镜");
   AppendMenuW(m,MF_SEPARATOR,0,nullptr); AppendMenuW(m,MF_STRING,4,L"退出小黎");
   POINT p; GetCursorPos(&p); SetForegroundWindow(menuOwner);
@@ -64,7 +62,7 @@ void menu() {
   if(choice==2) { inputEnabled=!inputEnabled; animation.enabled=inputEnabled; lastKey=0; }
   if(choice==3) setThrough(!passThrough);
   if(choice==4) DestroyWindow(windowHandle);
-  if(choice>=5 && choice<=7) animation.preview(choice==5?lishen::Action::Tea:choice==6?lishen::Action::Sweet:lishen::Action::Glasses);
+  if(choice==7) animation.preview(lishen::Action::Glasses);
   DestroyMenu(m); PostMessageW(windowHandle,WM_NULL,0,0);
 }
 LRESULT CALLBACK procedure(HWND h,UINT message,WPARAM w,LPARAM l) {
