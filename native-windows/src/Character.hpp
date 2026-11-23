@@ -36,8 +36,8 @@ template<class C> void character(C& c,const Animation& a) {
    if(eyeH<2) c.line(x,y+4,x+32,y+4,outline,2.5f);
    else {
      c.ellipse(x,y,32,eyeH,"#fffaf5","none",0);
-     c.ellipse(x+11+a.gazeX*4,y+a.gazeY*1.8f,12,eyeH,"#858367","none",0,"pupil");
-     c.ellipse(x+15+a.gazeX*4,y+1+a.gazeY*1.8f,4,std::max(2.0f,eyeH-3),"#353d3e","none",0,"pupil");
+     c.ellipse(x+17-6*a.pupil+a.gazeX*4,y+a.gazeY*1.8f,12*a.pupil,eyeH,"#858367","none",0,"pupil");
+     c.ellipse(x+17-2*a.pupil+a.gazeX*4,y+1+a.gazeY*1.8f,4*a.pupil,std::max(2.0f,eyeH-3),"#353d3e","none",0,"pupil");
      c.ellipse(x+13+a.gazeX*4,y+2,3,3,"#ffffff","none",0,"pupil");
      c.line(x-1,y+1,x+33,y+1,outline,2.3f);
    }
@@ -59,10 +59,12 @@ template<class C> void character(C& c,const Animation& a) {
  c.curve({{99+hx,89+hy},{121+hx,74+hy},{136+hx,59+hy},{143+hx,45+hy}},"none","#555164",2);
  // Fixed keyboard; only the two contacted keys move down with their fingers.
  c.roundRect(78,263,164,29,7,"#dce9f1","#93aec2",1.7f);
- for(int row=0;row<3;row++) for(int k=0;k<11;k++) {
-   float press=row==1?(k==3?p.pressLeft:k==8?p.pressRight:0):0;
-   c.roundRect(85+k*13.5f,267+row*7+press*1.6f,10,4,1,
+ for(int row=0;row<3;row++) for(int k=0;k<(row==0?10:row==1?9:7);k++) {
+   float press=row==a.left.row && k==a.left.col?p.pressLeft:row==a.right.row && k==a.right.col?p.pressRight:0;
+   c.roundRect(85+k*13.5f+row*3,267+row*7+press*1.6f,10,4,1,
        press>.15f?"#9dc9e1":"#ffffff","none",0);
+   const char* letters[]={"QWERTYUIOP","ASDFGHJKL","ZXCVBNM"};
+   c.legend(90+k*13.5f+row*3,271+row*7+press*1.6f,letters[row][k]);
  }
  // Articulated shoulders, elbows, forearms, cuffs, palms, and fingers.
  auto arm=[&](Point shoulder,Point palm,bool right){
@@ -93,6 +95,11 @@ template<class C> void character(C& c,const Animation& a) {
      }
    }
  };
+ if(a.pet>.45f)for(int i=0;i<3;i++){
+   float phase=float(std::fmod(a.time*.65+i/3.,1.));
+   float size=(3+phase*4)*std::sin(phase*3.14159f)*a.pet;
+   c.ellipse(239+i*7+phase*10,103-phase*35,size,size,"#e8f6fc","#89bdd8",1);
+ }
  fingers(p.leftPalm,0,{0,0});fingers(p.rightPalm,p.reach,p.indexTip);
 }
 }

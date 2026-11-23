@@ -11,7 +11,7 @@ struct Pose {
 inline Pose pose(const Animation& a){
  Pose p{};p.headX=a.gazeX*3.2f;p.headY=a.gazeY*1.3f+std::sin(float(a.time)*1.8f)*1.1f;
  p.pressLeft=float(a.pulseLeft);p.pressRight=float(a.pulseRight);
- p.leftPalm={130.5f,259+p.pressLeft*1.6f};p.rightPalm={198,259+p.pressRight*1.6f};
+ p.leftPalm={a.lx,a.ly-15+p.pressLeft*1.6f};p.rightPalm={a.rx,a.ry-15+p.pressRight*1.6f};
  if(a.action==Action::Glasses){
    float t=float(std::clamp((a.time-a.actionStart)/4,0.0,1.0));
    p.reach=t<.24f?ease(t/.24f):t<.74f?1:1-ease((t-.74f)/.26f);

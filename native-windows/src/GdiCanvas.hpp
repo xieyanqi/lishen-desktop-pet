@@ -5,9 +5,16 @@
 #include "Character.hpp"
 namespace lishen {
 class GdiCanvas {
+ Gdiplus::FontFamily keyFamily{L"Segoe UI"};
+ Gdiplus::Font keyFont{&keyFamily,5,Gdiplus::FontStyleRegular,Gdiplus::UnitPixel};
  Gdiplus::Graphics& g;
  static Gdiplus::Color color(const char* s) { unsigned v=0; if(s[0]=='#')v=static_cast<unsigned>(std::strtoul(s+1,nullptr,16)); return Gdiplus::Color(255,(v>>16)&255,(v>>8)&255,v&255); }
 public:
+ void legend(float x,float y,char key){
+   Gdiplus::SolidBrush ink(Gdiplus::Color(255,82,110,129));
+   wchar_t label=static_cast<wchar_t>(key);
+   g.DrawString(&label,1,&keyFont,Gdiplus::PointF(x-2.4f,y-5.2f),&ink);
+ }
  explicit GdiCanvas(Gdiplus::Graphics& graphics):g(graphics){}
  void ellipse(float x,float y,float w,float h,const char* fill,const char* stroke,float width,const char* =nullptr) {
    if(fill[0]!='n'){Gdiplus::SolidBrush b(color(fill));g.FillEllipse(&b,x,y,w,h);}

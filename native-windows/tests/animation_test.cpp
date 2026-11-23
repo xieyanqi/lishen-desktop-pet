@@ -7,6 +7,23 @@
 using namespace lishen;
 float distance(Point a,Point b){return std::hypot(a.x-b.x,a.y-b.y);}
 int main(){
+ Animation mapped;
+ for(char k='A';k<='Z';++k){
+   mapped.letter(k);auto pos=mapped.latest;
+   const char* rows[]={"QWERTYUIOP","ASDFGHJKL","ZXCVBNM"};
+   assert(rows[pos.row][pos.col]==k);
+   for(int i=0;i<12;i++)mapped.tick(.01,0,-1);
+   assert(mapped.gazeY>0);
+   assert(std::abs((pos.x()<155?mapped.lx:mapped.rx)-pos.x())<1);
+ }
+ for(int i=0;i<200;i++)mapped.tick(.02,-1,-1);
+ assert(mapped.gazeX<-.9 && mapped.gazeY<-.9);
+ mapped.hovered=true;
+ for(int i=0;i<40;i++)mapped.tick(.02,0,0);
+ assert(mapped.eyelid()>.98 && mapped.pupil>1.3);
+ mapped.hovered=false;
+ for(int i=0;i<40;i++)mapped.tick(.02,2,2);
+ assert(mapped.pet<.01 && mapped.pupil<.9);
  Animation a;a.key();assert(a.action==Action::Typing);
  a.tick(.1,1,-1);assert(a.pulseLeft>.8 && a.pulseRight==0);
  a.key();a.tick(.1,1,-1);assert(a.pulseRight>.8);

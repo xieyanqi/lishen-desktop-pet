@@ -35,7 +35,7 @@ void draw() {
     oldBitmap=SelectObject(bufferDC,bufferBitmap);
   }
   {
-    Graphics g(bufferDC); g.Clear(Color(0,0,0,0));
+    Bitmap frame(Width,Height,Width*4,PixelFormat32bppPARGB,static_cast<BYTE*>(bufferPixels)); Graphics g(&frame); g.Clear(Color(0,0,0,0));
     g.SetSmoothingMode(SmoothingModeAntiAlias);g.SetPixelOffsetMode(PixelOffsetModeHighQuality);
     g.ScaleTransform(0.90f,0.90f);g.TranslateTransform(7,8);
     lishen::GdiCanvas canvas(g);lishen::character(canvas,animation);
@@ -75,6 +75,11 @@ LRESULT CALLBACK procedure(HWND h,UINT message,WPARAM w,LPARAM l) {
       POINT cursor; RECT r; GetCursorPos(&cursor); GetWindowRect(h,&r);
       float targetX=(cursor.x-(r.left+Width/2))/320.0f;
       float targetY=(cursor.y-(r.top+130))/260.0f;
+      POINT local=cursor;ScreenToClient(h,&local);
+      float px=local.x/.9f-7,py=local.y/.9f-8;
+      animation.hovered=!dragging && !passThrough && WindowFromPoint(cursor)==h &&
+        ((std::pow((px-160)/91,2)+std::pow((py-106)/83,2)<1) ||
+         (px>105 && px<210 && py>176 && py<245));
       ULONGLONG now=GetTickCount64();
       animation.tick((now-lastTick)/1000.0*(slowMotion?.25:1),targetX,targetY);lastTick=now;
       draw(); return 0;
@@ -83,7 +88,7 @@ LRESULT CALLBACK procedure(HWND h,UINT message,WPARAM w,LPARAM l) {
       RAWINPUT input{}; UINT size=sizeof(input);
       if(GetRawInputData(reinterpret_cast<HRAWINPUT>(l),RID_INPUT,&input,&size,sizeof(RAWINPUTHEADER))!=UINT(-1)
           && input.header.dwType==RIM_TYPEKEYBOARD && !(input.data.keyboard.Flags&RI_KEY_BREAK) && inputEnabled)
-        { lastKey=GetTickCount64(); animation.key(); }
+        { lastKey=GetTickCount64(); animation.letter(input.data.keyboard.VKey); }
       // No key codes or typed contents are persisted.
       return DefWindowProcW(h,message,w,l);
     }
